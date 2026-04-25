@@ -30,3 +30,12 @@ Trained on the UCI Online Retail II dataset (~525,000 transactions, ~4,300 uniqu
 **Headline insight:** 60% of the customer base is slipping or gone. Only 18% are Champions. The engine helps a marketing team reallocate spend from broad blasts to segment-specific campaigns.
 
 ## How it works
+```mermaid
+flowchart TD
+    A[Raw transactions525K rows] -->|clean: drop nulls, cancellations, duplicates| B[Cleaned transactions~400K rows]
+    B -->|groupby + aggregate| C[RFM table4,312 customers × 3 features]
+    C -->|log1p + StandardScaler| D[Scaled features]
+    D -->|K-Means K=4chosen via elbow method| E[Cluster labels]
+    E -->|business naming +decision rules| F[decisions.csv]
+    F --> G[Streamlit app]
+```
